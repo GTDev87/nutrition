@@ -6,7 +6,7 @@
             [environ.core :refer [env]]
             [noir.session :as session]))
 
-(def template-path "templates/")
+(parser/set-resource-path! (clojure.java.io/resource "templates"))
 
 (deftype
   RenderableTemplate
@@ -29,7 +29,7 @@
               (catch IllegalArgumentException _ context)))
           :user-id
           (session/get :user-id))
-        (parser/render-file (str template-path template))
+        (parser/render-file (str template))
         response)
       "text/html; charset=utf-8")))
 
